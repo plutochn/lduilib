@@ -1,0 +1,62 @@
+﻿生成启动时间为 2016/8/3 17:09:30。
+     1>项目“G:\cb_space\lduilib\lduilib_lib\lduilib_lib.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         E:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /IG:\cb_space\lduilib\lduilib_lib\ /IG:\cb_space\lduilib\lduilib_lib\3rd\glfw\deps /IG:\cb_space\lduilib\lduilib_lib\3rd\glfw\include /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D LDUILIB_LIB_EXPORTS /D _DUI_LIB /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Core\UIContainer.cpp
+         UIContainer.cpp
+     1>g:\cb_space\lduilib\lduilib_lib\core\uimanager.h(28): warning C4251: “DuiLib::tagTImageInfo::sResType”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 struct“DuiLib::tagTImageInfo”的客户端使用
+     1>g:\cb_space\lduilib\lduilib_lib\core\uimanager.h(37): warning C4251: “DuiLib::tagTDrawInfo::sDrawString”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 struct“DuiLib::tagTDrawInfo”的客户端使用
+     1>g:\cb_space\lduilib\lduilib_lib\core\uimanager.h(38): warning C4251: “DuiLib::tagTDrawInfo::sImageName”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 struct“DuiLib::tagTDrawInfo”的客户端使用
+     1>g:\cb_space\lduilib\lduilib_lib\core\uimanager.h(60): warning C4251: “DuiLib::tagTResInfo::m_ImageHash”: class“std::map<std::string,void *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>”需要有 dll 接口由 struct“DuiLib::tagTResInfo”的客户端使用
+                 with
+                 [
+                     _Kty=std::string,
+                     _Ty=void *
+                 ]
+     1>g:\cb_space\lduilib\lduilib_lib\core\uimanager.h(100): warning C4251: “DuiLib::CPaintManagerUI::s_PaintWnds”: class“std::vector<DuiLib::DuiHWND,std::allocator<_Ty>>”需要有 dll 接口由 class“DuiLib::CPaintManagerUI”的客户端使用
+                 with
+                 [
+                     _Ty=DuiLib::DuiHWND
+                 ]
+     1>g:\cb_space\lduilib\lduilib_lib\core\uimanager.h(104): warning C4251: “DuiLib::CPaintManagerUI::m_sResPath”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“DuiLib::CPaintManagerUI”的客户端使用
+     1>g:\cb_space\lduilib\lduilib_lib\core\uimanager.h(106): warning C4251: “DuiLib::CPaintManagerUI::m_aNotifiers”: class“std::set<DuiLib::INotifyUI *,std::less<_Kty>,std::allocator<_Kty>>”需要有 dll 接口由 class“DuiLib::CPaintManagerUI”的客户端使用
+                 with
+                 [
+                     _Kty=DuiLib::INotifyUI *
+                 ]
+     1>g:\cb_space\lduilib\lduilib_lib\core\uimanager.h(118): warning C4251: “DuiLib::CPaintManagerUI::m_sName”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“DuiLib::CPaintManagerUI”的客户端使用
+     1>g:\cb_space\lduilib\lduilib_lib\core\uirender.h(30): warning C4251: “DuiLib::CRenderEngine::s_TextureCache”: class“std::map<std::string,GLuint,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>”需要有 dll 接口由 class“DuiLib::CRenderEngine”的客户端使用
+                 with
+                 [
+                     _Kty=std::string,
+                     _Ty=GLuint
+                 ]
+     1>g:\cb_space\lduilib\lduilib_lib\core\uibase.h(18): warning C4251: “DuiLib::CNotifyPump::m_VirtualWndMap”: class“std::map<std::string,void *,std::less<_Kty>,std::allocator<std::pair<const _Kty,_Ty>>>”需要有 dll 接口由 class“DuiLib::CNotifyPump”的客户端使用
+                 with
+                 [
+                     _Kty=std::string,
+                     _Ty=void *
+                 ]
+     1>g:\cb_space\lduilib\lduilib_lib\core\uicontrol.h(60): warning C4251: “DuiLib::CControlUI::m_sName”: class“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口由 class“DuiLib::CControlUI”的客户端使用
+     1>g:\cb_space\lduilib\lduilib_lib\core\uicontainer.h(23): warning C4251: “DuiLib::CContainerUI::m_items”: class“std::vector<DuiLib::CControlUI *,std::allocator<_Ty>>”需要有 dll 接口由 class“DuiLib::CContainerUI”的客户端使用
+                 with
+                 [
+                     _Ty=DuiLib::CControlUI *
+                 ]
+     1>g:\cb_space\lduilib\lduilib_lib\core\uicontainer.cpp(40): warning C4018: “<”: 有符号/无符号不匹配
+       Link:
+         E:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"G:\cb_space\lduilib\Debug\lduilib_lib.dll" /INCREMENTAL /NOLOGO /LIBPATH:G:\cb_space\lduilib\lduilib_lib\3rd\glfw\lib /LIBPATH:G:\cb_space\lduilib\lduilib_lib\3rd/glut glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"G:\cb_space\lduilib\Debug\lduilib_lib.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"G:\cb_space\lduilib\Debug\lduilib_lib.lib" /MACHINE:X86 /DLL Debug\glad.obj
+         Debug\UIBase.obj
+         Debug\UIContainer.obj
+         Debug\UIControl.obj
+         Debug\UIDlgBuilder.obj
+         Debug\UIManager.obj
+         Debug\UIRender.obj
+         Debug\Rectangle.obj
+         Debug\stb_image.obj
+         Debug\UIMarkup.obj
+         lduilib_lib.vcxproj -> G:\cb_space\lduilib\Debug\lduilib_lib.dll
+     1>已完成生成项目“G:\cb_space\lduilib\lduilib_lib\lduilib_lib.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:01.09

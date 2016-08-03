@@ -19,6 +19,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{44f942d4-da94-4b02-8edc-f2a949e9572e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Deps">
+      <UniqueIdentifier>{aad785d9-634c-4ed8-8fc7-967f09ee8a70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -45,6 +48,18 @@
     <ClInclude Include="Utils\Rectangle.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Core\UIContainer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\stb_image.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\UIDlgBuilder.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\UIMarkup.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\UIBase.cpp">
@@ -61,6 +76,21 @@
     </ClCompile>
     <ClCompile Include="Utils\Rectangle.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\UIContainer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\stb_image.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\UIDlgBuilder.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="3rd\glfw\deps\glad.c">
+      <Filter>Deps</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\UIMarkup.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -116,51 +116,48 @@ void CNotifyPump::NotifyPump(TNotifyUI& msg)
 }
 
 ///
-CWindowWnd* CWindowWnd::ms_UniqueWindow = NULL;
-
-CWindowWnd* CWindowWnd::sharedWindow()
-{
-	return ms_UniqueWindow;
-}
 
 CWindowWnd::CWindowWnd() : m_hWnd(NULL)
 {
-	ms_UniqueWindow = this;
+	 
 }
 
-HWND CWindowWnd::GetHWND() const
+DuiHWND CWindowWnd::GetHWND() const
 {
     return m_hWnd;
 }
 
-void CWindowWnd::OnGlutWindowSize(int w, int h)
-{
-	CWindowWnd* pWnd = CWindowWnd::sharedWindow();
-	pWnd->HandleMessage(UI_WM_SIZE, w, h);
-}
-
-void CWindowWnd::OnGlutPaint()
-{
-	CWindowWnd* pWnd = CWindowWnd::sharedWindow();
-	pWnd->HandleMessage(UI_WM_PAINT,0,0);
-}
-
-LRESULT CWindowWnd::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CWindowWnd::HandleMessage(DuiULONG uMsg, DuiULONG wParam, DuiULONG lParam)
 {
 	return 0;
 }
 
-HWND CWindowWnd::Create(HWND hwndParent, const char* pstrName,int x, int y, int cx , int cy)
+static void window_refresh_callback(GLFWwindow* window)
 {
-	glutInitWindowSize(cx, cy);
-	m_hWnd = glutCreateWindow(pstrName);
+	CWindowWnd* pWnd = (CWindowWnd*)glfwGetWindowUserPointer(window);
+	pWnd->HandleMessage(UI_WM_PAINT, 0, 0);
+}
 
-	glutInitDisplayMode(GLUT_RGBA| GLUT_DOUBLE);
+static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	CWindowWnd* pWnd = (CWindowWnd*)glfwGetWindowUserPointer(window);
+	pWnd->HandleMessage(UI_WM_SIZE, width, height);
+	glViewport(0, 0, width, height);
+}
 
+DuiHWND CWindowWnd::Create(DuiHWND hwndParent, const char* pstrName,int x, int y, int cx , int cy)
+{
+	m_hWnd = glfwCreateWindow(cx, cy, pstrName, NULL, NULL);
+	glfwMakeContextCurrent(m_hWnd);
+	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+	glfwSetWindowUserPointer(m_hWnd, this);
+	// bind callback for wnd.
+	{
+		glfwSetWindowRefreshCallback(m_hWnd, window_refresh_callback);
+		glfwSetFramebufferSizeCallback(m_hWnd, framebuffer_size_callback);
+	}
 	HandleMessage(UI_WM_CREATE, cx, cy);
-
-	glutDisplayFunc(&CWindowWnd::OnGlutPaint);
-	glutReshapeFunc(&CWindowWnd::OnGlutWindowSize);
 
     return m_hWnd;
 }

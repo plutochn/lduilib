@@ -3,7 +3,6 @@
 
 namespace DuiLib
 {
-#define _WIN32
 #ifdef _DUI_LIB
 	#define DUI_API __declspec(dllexport)
 #else
@@ -18,17 +17,14 @@ namespace DuiLib
 
 #define SCROLLBAR_LINESIZE      8
 
-typedef int HWND;
-typedef unsigned int UINT;
-typedef unsigned int wParam;
-typedef unsigned int lParam;
-typedef unsigned int DWORD;
+typedef GLFWwindow* DuiHWND;
 
-typedef unsigned short WORD;
+typedef unsigned char* LPBYTE;
+ 
 
 #define UI_WM_PAINT 0
 #define UI_WM_CREATE 1
-#define UI_WM_SIZE 1
+#define UI_WM_SIZE 2
 
 #define _T
 
@@ -39,7 +35,7 @@ enum DuiSig
 	DuiSig_vn,      // void (TNotifyUI)
 };
 
-struct POINT
+struct DuiPOINT
 {
     long x;
     long y;
@@ -50,19 +46,21 @@ typedef struct
 	float    top;
 	float    right;
 	float    bottom;
-} RECT;
+} DuiRECTf;
+
+typedef struct
+{
+	unsigned long    left;
+	unsigned long     bottom;
+	unsigned long     right;
+	unsigned long     top;
+} DuiRECT;
 
 typedef struct
 {
 	long cx;
 	long cy;
-} SIZE;
-
-enum
-{
-	DT_LEFT,
-	DT_TOP
-};
+} DuiSIZE;
 
 typedef struct
 {
@@ -70,12 +68,14 @@ typedef struct
 	float    r;
 	float    g;
 	float    b;
-} COLOR;
+} DuiCOLOR;
 
-typedef unsigned long WPARAM;
-typedef unsigned long LPARAM;
-typedef unsigned long LRESULT;
-typedef unsigned long HDC;
+typedef const char* LPCTSTR;
+typedef unsigned char BYTE;
+typedef char* LPTSTR;
+typedef size_t SIZE_T;
+typedef unsigned long DuiULONG;
+typedef unsigned long DuiHDC;
 
 class CControlUI;
 // Structure for notifications to the outside world

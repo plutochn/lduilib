@@ -20,23 +20,21 @@ public:
 
 	}
 
-	LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, bool& bHandled)
+	unsigned long OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, bool& bHandled)
 	{
 		m_pm.Init(m_hWnd);
 		m_pm.SetPaintWindowSize(wParam, lParam);
 
-		/*CDialogBuilder builder;
-		CDialogBuilderCallbackEx cb;
-		CControlUI* pRoot = builder.Create(_T("UILogin.xml"), (UINT)0, &cb, &m_pm);
-		ASSERT(pRoot && "Failed to parse XML");
+		CDialogBuilder builder;
+		CControlUI* pRoot = builder.Create(_T("UILogin.xml"),&m_pm);
 		m_pm.AttachDialog(pRoot);
-		m_pm.AddNotifier(this);*/
 		m_pm.AddNotifier(this);
+
 		Init();
 		return 0;
 	}
 
-	virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+	virtual LRESULT HandleMessage(DuiULONG uMsg, DuiULONG wParam, DuiULONG lParam)
 	{
 		LRESULT lRes = 0;
 		bool bHandled = true;
@@ -59,7 +57,7 @@ int main(int argc, char** argv)
 	DuiLib::CPaintManagerUI::init(argc,argv);
 
 	CDemoWnd* pWindow = new CDemoWnd();
-    pWindow->Create(NULL,"CallFromExe",10,10,400,400);
+    pWindow->Create(NULL,"CallFromExe");
 
     pWindow->ShowWindow();
 

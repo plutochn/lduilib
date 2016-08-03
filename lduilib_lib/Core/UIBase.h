@@ -21,23 +21,19 @@ private:
 class DUI_API CWindowWnd
 {
 public:
-	static CWindowWnd* sharedWindow();
 
     CWindowWnd();
-    HWND GetHWND() const;
-    HWND Create(HWND hwndParent, const char* pstrName,int x, int y, int cx , int cy);
+    DuiHWND GetHWND() const;
+	DuiHWND Create(DuiHWND hwndParent, const char* pstrName,int x=0, int y=0, int cx=100 , int cy=200);
     void ShowWindow(bool bShow = true);
 
     virtual void OnFinalMessage();
-	virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
+	virtual LRESULT HandleMessage(DuiULONG uMsg, DuiULONG wParam, DuiULONG lParam);
 
 public:
-	static void OnGlutPaint();
-	static void OnGlutWindowSize(int w, int h);
 
 protected:
-    int m_hWnd;
-	static CWindowWnd* ms_UniqueWindow;
+	DuiHWND m_hWnd;
 };
 
 }

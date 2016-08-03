@@ -7,29 +7,67 @@ namespace DuiLib {
 class  DUI_API  CControlUI
 {
 public:
-string  GetName() const;
-void* GetInterface(const char* pstrName);
+	CControlUI();
 
-virtual bool Paint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl = NULL); // 返回要不要继续绘制
-virtual bool DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl);
-virtual void PaintBkColor(HDC hDC);
-virtual void PaintBkImage(HDC hDC);
-virtual void PaintStatusImage(HDC hDC);
-virtual void PaintText(HDC hDC);
-virtual void PaintBorder(HDC hDC);
+string  GetName() const;
+virtual void* GetInterface(const char* pstrName);
+virtual string GetClass();
+
+bool DrawImage(DuiHDC hDC, TDrawInfo& drawInfo);
+
+CControlUI* GetParent();
+virtual void DoInit();
+virtual void Init();
+virtual void SetManager(CPaintManagerUI* pManager, CControlUI* pParent, bool bInit = true);
+virtual void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+
+virtual bool Paint(DuiHDC hDC, const DuiRECT& rcPaint, CControlUI* pStopControl = NULL); // 返回要不要继续绘制
+virtual bool DoPaint(DuiHDC hDC, const DuiRECT& rcPaint, CControlUI* pStopControl);
+virtual void PaintBkColor(DuiHDC hDC);
+virtual void PaintBkImage(DuiHDC hDC);
+virtual void PaintStatusImage(DuiHDC hDC);
+virtual void PaintText(DuiHDC hDC);
+virtual void PaintBorder(DuiHDC hDC);
+
+void SetBkImage(const char* pStrImage);
 
 void NeedUpdate();
 bool IsVisible() const;
+bool IsFloat() const;
+void SetInternVisible(bool InternVisible);
 
+void SetPaintManager(CPaintManagerUI* pManager);
+
+void SetPos(DuiRECT& pos);
+const DuiRECT& GetPos();
+
+DWORD GetBkColor() const;
+void SetBkColor(DWORD bkColor);
+
+void SetFixedXY(DuiSIZE& fixedXY);
+
+void  SetFixedWidth(int cx);
+void  SetFixedHeight(int cy);
+
+int  GetFixedHeight() const;
+ 
 protected:
+	TDrawInfo m_diBk;
+
 	bool m_bUpdateNeeded;
 	CPaintManagerUI* m_pManager;
+	CControlUI*		m_pParent;
 	string m_sName;
-	RECT m_rcPaint;
-	RECT m_rcItem;
+	DuiRECT m_rcPaint;
+	DuiRECT m_rcItem;
 
 	bool m_bVisible;
+	bool m_bFloat;
 	bool m_bInternVisible;	
+	DWORD m_dwBackColor;
+
+	DuiSIZE m_xyFixed;
+	DuiSIZE m_cxyFixed;
 };
 
 }

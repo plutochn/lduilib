@@ -3,7 +3,7 @@
 
 namespace DuiLib {
 
-	  bool DUI_API IntersectRect(RECT* pdrc, const RECT* psrc1, const RECT* psrc2);
+	  bool DUI_API IntersectRect(DuiRECT* pdrc, const DuiRECT* psrc1, const DuiRECT* psrc2);
 }
 
 #endif
