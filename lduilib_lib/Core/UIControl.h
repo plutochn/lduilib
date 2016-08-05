@@ -34,23 +34,30 @@ void SetBkImage(const char* pStrImage);
 void NeedUpdate();
 bool IsVisible() const;
 bool IsFloat() const;
+void SetFloat(bool bFloat = false);
+
 void SetInternVisible(bool InternVisible);
 
 void SetPaintManager(CPaintManagerUI* pManager);
 
-void SetPos(DuiRECT& pos);
+virtual void SetPos(DuiRECT& pos,bool bNeedInvalidate = false);
 const DuiRECT& GetPos();
 
 DWORD GetBkColor() const;
 void SetBkColor(DWORD bkColor);
 
 void SetFixedXY(DuiSIZE& fixedXY);
+DuiSIZE GetFixedXY();
 
 void  SetFixedWidth(int cx);
 void  SetFixedHeight(int cy);
 
 int  GetFixedHeight() const;
- 
+int  GetFixedWidth() const;
+
+void SetText(const char* text);
+const string& GetText() const;
+
 protected:
 	TDrawInfo m_diBk;
 
@@ -65,6 +72,8 @@ protected:
 	bool m_bFloat;
 	bool m_bInternVisible;	
 	DWORD m_dwBackColor;
+
+	string m_sText;
 
 	DuiSIZE m_xyFixed;
 	DuiSIZE m_cxyFixed;

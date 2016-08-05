@@ -48,6 +48,9 @@ CControlUI* CDialogBuilder::_Parse(CMarkupNode* pRoot, CControlUI* pParent, CPai
 			SIZE_T cchLen = strlen(pstrClass);
 			switch (cchLen)
 			{
+			case 5:
+				if (strcmp(pstrClass, DUI_CTR_LABEL) == 0)             pControl = new CLabelUI;
+				break;
 			case 9:
 				if (strcmp(pstrClass, DUI_CTR_CONTAINER) == 0)             pControl = new CContainerUI;
 				break;
@@ -80,7 +83,7 @@ CControlUI* CDialogBuilder::_Parse(CMarkupNode* pRoot, CControlUI* pParent, CPai
 
 		if (pManager) 
 		{
-			pControl->SetManager(pManager, NULL, false);
+			pControl->SetManager(pManager, pParent, false);
 		}
 
 		if (pReturn == NULL) pReturn = pControl;

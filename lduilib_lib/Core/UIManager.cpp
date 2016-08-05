@@ -161,7 +161,7 @@ void CPaintManagerUI::UpdateRootControlSize(int w, int h)
 {
 	DuiRECT r = { 0 };
 	r.right = w;
-	r.top = h;
+	r.bottom = h;
 	if (m_pRoot)
 		m_pRoot->SetPos(r);
 }
@@ -222,7 +222,7 @@ bool CPaintManagerUI::MessageHandler(DuiULONG uMsg, DuiULONG wParam, DuiULONG lP
 					m_bFirstLayout = false;
 					SendNotify(m_pRoot, DUI_MSGTYPE_WINDOWINIT, 0, 0, false);
 				}
-				DuiRECT rcPaint = {0,0,m_WndPaintWidth,m_WndPaintHeight};
+				DuiRECT rcPaint = {0,m_WndPaintHeight,m_WndPaintWidth,0};
 				DuiHDC hdc = 0;
 				m_pRoot->Paint(hdc, rcPaint, NULL);
 			} while (0);

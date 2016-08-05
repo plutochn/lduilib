@@ -1,9 +1,18 @@
 #include "UIlib.h"
 
+#define FONTSTASH_IMPLEMENTATION
+#include "Utils/fontstash.h"
+
+#define GLFONTSTASH_IMPLEMENTATION
+#include "Utils/glfontstash.h"
+
 namespace DuiLib
 {
 	unsigned long CRenderEngine::s_WndWidth = 0;
 	unsigned long CRenderEngine::s_WndHeight = 0;
+
+	FONScontext* CRenderEngine::s_fs = NULL;
+	int CRenderEngine::s_fontNormal = 0;
 
 	map<string, GLuint> CRenderEngine::s_TextureCache;
 	
@@ -14,9 +23,9 @@ namespace DuiLib
 		glClear(GL_COLOR_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0.f, 1.f, 0.f, 1.f, 0.f, 1.f);
-
+		glOrtho(0.f, s_WndWidth, s_WndHeight,0, 0.f, 1.f);
 		glEnable(GL_TEXTURE_2D);
+		
 	}
 	void CRenderEngine::EndRender(DuiHWND WndPaint)
 	{
@@ -28,8 +37,8 @@ namespace DuiLib
 		s_WndHeight = h;
 	}
 
-#define WIDTH_TRANSPORT(x) ( (float)(x)/s_WndWidth )
-#define HEIGHT_TRANSPORT(y) ( (float)(s_WndHeight-y)/s_WndHeight )
+#define WIDTH_TRANSPORT(x) ( (float)(x) )
+#define HEIGHT_TRANSPORT(y) ( (float)(y) )
 #define RECT_TRANSPORT(r,rf) {\
 	rf.left = WIDTH_TRANSPORT(r.left); \
 	rf.top = HEIGHT_TRANSPORT(r.top); \
@@ -53,12 +62,21 @@ void CRenderEngine::DrawColor(DuiHDC hDC, const DuiRECT& rc, unsigned long   col
 
 	one = color & 0xff;
 	c.b = one/ 255.f;
- 
+
 	CRenderEngine::DrawColor(hDC, r, c);
+}
+
+void CRenderEngine::DrawLine(float sx, float sy, float ex, float ey)
+{
+	glBegin(GL_LINES);
+	glVertex2f(WIDTH_TRANSPORT(sx), HEIGHT_TRANSPORT(sy));
+	glVertex2f(WIDTH_TRANSPORT(ex), HEIGHT_TRANSPORT(ey));
+	glEnd();
 }
 
 void CRenderEngine::DrawColor(DuiHDC hDC, const DuiRECTf& rc, const DuiCOLOR&   color)
 {
+	
 	glColor4f(color.r, color.g,color.b,color.a);
 
 	glRectf(rc.left,rc.bottom,rc.right,rc.top);
@@ -161,7 +179,6 @@ GLuint CRenderEngine::CreateTexture(const TImageInfo& imageInfo)
 	x = imageInfo.nX;
 	y = imageInfo.nY;
 
-	char* pixels = new char[x*y*4];
 	GLuint texture;
 
 	glGenTextures(1, &texture);
@@ -174,19 +191,59 @@ GLuint CRenderEngine::CreateTexture(const TImageInfo& imageInfo)
 	return texture;
 }
 
+bool CRenderEngine::DrawTextSt(const char* text, DuiRECT& pos,int style,int iFont,DWORD dwTextColor)
+{
+	if (s_fs == NULL)
+	{
+		s_fs = glfonsCreate(512, 512, FONS_ZERO_TOPLEFT);
+		if (s_fs == NULL)
+		{
+			return false;
+		}
+		s_fontNormal = fonsAddFont(s_fs, "sans", "msyh.ttf");
+		if (s_fontNormal == FONS_INVALID)
+		{
+			return false;
+		}
+	}
+	float line_height = 15.0f;
+
+	//根据style左右中间对齐计算
+	float s_x = pos.left;
+	float s_y = (pos.bottom - pos.top) / 2.f + pos.top;
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	 
+	unsigned char a = (dwTextColor) >> 24;
+	unsigned char r = (dwTextColor & 0xff0000) >> 16;
+	unsigned char g = (dwTextColor & 0xff00) >> 8;
+	unsigned char b = (dwTextColor & 0xff);
+
+	unsigned int  text_clr = glfonsRGBA(r,g,b,a);
+
+	fonsClearState(s_fs);
+	fonsSetSize(s_fs, line_height);
+	fonsSetFont(s_fs, s_fontNormal);
+	fonsSetColor(s_fs, text_clr);
+	fonsDrawText(s_fs, s_x, s_y, text, NULL);
+
+	return true;
+}
 void CRenderEngine::DrawQuad(GLuint texture,const DuiRECT& rc)
 {
-	float gl_left = (float)(rc.left) / s_WndWidth;
-	float gl_right = (float)(rc.right) / s_WndWidth;
+	float gl_left =  0 ;
+	float gl_right = s_WndWidth  ;
 
-	float gl_top = (float)(s_WndHeight-rc.top) / s_WndHeight;
-	float gl_bottom = (float)(s_WndHeight - rc.bottom) / s_WndHeight;
-
+	float gl_top = s_WndHeight;
+	float gl_bottom = 0 ;
 	
+	glBegin(GL_QUADS);
+
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-	glBegin(GL_QUADS);
 
 	glTexCoord2f(0.f, 0.f);
 	glVertex2f(gl_left, gl_bottom);

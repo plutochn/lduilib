@@ -148,6 +148,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Control\UILabel.h" />
     <ClInclude Include="Core\UIBase.h" />
     <ClInclude Include="Core\UIContainer.h" />
     <ClInclude Include="Core\UIControl.h" />
@@ -156,12 +157,16 @@
     <ClInclude Include="Core\UIManager.h" />
     <ClInclude Include="Core\UIRender.h" />
     <ClInclude Include="UIlib.h" />
+    <ClInclude Include="Utils\fontstash.h" />
+    <ClInclude Include="Utils\glfontstash.h" />
     <ClInclude Include="Utils\Rectangle.h" />
     <ClInclude Include="Utils\stb_image.h" />
+    <ClInclude Include="Utils\stb_truetype.h" />
     <ClInclude Include="Utils\UIMarkup.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rd\glfw\deps\glad.c" />
+    <ClCompile Include="Control\UILabel.cpp" />
     <ClCompile Include="Core\UIBase.cpp" />
     <ClCompile Include="Core\UIContainer.cpp" />
     <ClCompile Include="Core\UIControl.cpp" />

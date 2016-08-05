@@ -11,6 +11,8 @@ namespace DuiLib
 
 	class DUI_API CContainerUI : public CControlUI,public IContainerUI
 	{
+		virtual void SetPos(DuiRECT& pos,bool bNeedInvalidate = false);
+		virtual void SetFloatPos(int iIndex);
 
 		virtual bool Add(CControlUI* pControl);
 

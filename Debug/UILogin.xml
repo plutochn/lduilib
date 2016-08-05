@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<Window size="662,442" >
+	<Container bkimage="bk.jpg" bkcolor="#ffffffff">
+		<Container bkcolor="#ff000000" float="true" pos="10,10,400,400">
+			<Label textcolor="#ff00ff00" float="true" pos="20,20,100,100"  bkcolor="#FF009F95" text="hello,zk">
+			</Label>
+		</Container>
+	</Container>
+</Window>

@@ -22,6 +22,9 @@
     <Filter Include="Deps">
       <UniqueIdentifier>{aad785d9-634c-4ed8-8fc7-967f09ee8a70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Control">
+      <UniqueIdentifier>{c125621e-59fd-4483-a4e6-9b4a7baea90f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -60,6 +63,18 @@
     <ClInclude Include="Utils\UIMarkup.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Control\UILabel.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\fontstash.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\glfontstash.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\stb_truetype.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\UIBase.cpp">
@@ -91,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="Utils\UIMarkup.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\UILabel.cpp">
+      <Filter>Control</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

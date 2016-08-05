@@ -3,7 +3,7 @@
 namespace DuiLib {
 
 	CControlUI::CControlUI():
-		m_dwBackColor(0xffffffff),
+		m_dwBackColor(0xff000000),
 		m_bFloat(false),
 		m_bVisible(true),
 		m_pParent(NULL)
@@ -107,6 +107,18 @@ void CControlUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
 		 SetBkColor(clrColor);
 	 }
 	 else if (strcmp(pstrName, _T("bkimage")) == 0) SetBkImage(pstrValue);
+	 else if (strcmp(pstrName, _T("text")) == 0) SetText(pstrValue);
+	 else if (strcmp(pstrName, _T("float")) == 0)
+	 {
+		 if (0 == strcmp(pstrValue, "true"))
+		 {
+			 SetFloat(true);
+		 }
+		 else
+		 {
+			 SetFloat(false);
+		 }
+	 }
 }
 
 void CControlUI::PaintBkImage(DuiHDC hDC)
@@ -121,7 +133,6 @@ void CControlUI::PaintStatusImage(DuiHDC hDC)
 
 void CControlUI::PaintText(DuiHDC hDC)
 {
-	 
 }
 
 void CControlUI::PaintBorder(DuiHDC hDC)
@@ -129,9 +140,27 @@ void CControlUI::PaintBorder(DuiHDC hDC)
 	 
 }
 
-void CControlUI::SetPos(DuiRECT& pos)
+void CControlUI::SetPos(DuiRECT& pos,bool bNeedInvalidate)
 {
-	m_rcItem = pos;
+	if (m_bFloat)
+	{
+		CControlUI* pParent = GetParent();
+		if (pParent != NULL)
+		{
+			DuiRECT rcParentPos = pParent->GetPos();
+			DuiRECT rcCtrl = { 0 };
+			rcCtrl.left = rcParentPos.left + pos.left;
+			rcCtrl.right = rcParentPos.left + pos.right;
+			rcCtrl.top = rcParentPos.top + pos.top;
+			rcCtrl.bottom = rcParentPos.top + pos.bottom;
+
+			m_rcItem = rcCtrl;
+		}
+	}
+	else
+	{
+		m_rcItem = pos;
+	}
 }
 const DuiRECT&  CControlUI::GetPos()
 {
@@ -153,6 +182,11 @@ void CControlUI::SetFixedXY(DuiSIZE& fixedXY)
 	m_xyFixed = fixedXY;
 }
 
+DuiSIZE CControlUI::GetFixedXY()
+{
+	return m_xyFixed;
+}
+
 void CControlUI::SetFixedWidth(int cx)
 {
 	if (cx < 0) return;
@@ -168,6 +202,21 @@ void CControlUI::SetFixedHeight(int cy)
 int CControlUI::GetFixedHeight() const
 {
 	return m_cxyFixed.cy;
+}
+
+int CControlUI::GetFixedWidth() const
+{
+	return m_cxyFixed.cx;
+}
+
+void CControlUI::SetText(const char* text)
+{
+	m_sText = text;
+}
+
+const string& CControlUI::GetText() const
+{
+	return m_sText;
 }
 
 void CControlUI::SetPaintManager(CPaintManagerUI* pManager)
@@ -188,7 +237,10 @@ bool CControlUI::IsFloat() const
 {
 	return m_bFloat;
 }
-
+void CControlUI::SetFloat(bool bFloat  )
+{
+	m_bFloat = bFloat;
+}
 void CControlUI::SetBkImage(const char* pStrImage)
 {
 	if (m_diBk.sDrawString == pStrImage && m_diBk.pImageInfo != NULL) return;
